@@ -1,0 +1,135 @@
+/* Start Global */
+
+@font-face {
+  font-family: Almarai;
+  src: url(../webfonts/Almarai-Regular.ttf);
+}
+
+body {
+  font-family: "Cookie", cursive !important;
+  background-image: url(../img/spidy1.jpg);
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  height: 1000px;
+}
+
+:root {
+  --main-color: #df0331;
+}
+
+.page-wrap {
+  width: calc(100% - 72px);
+  margin-inline-start: 72px;
+  padding-top: 40px;
+}
+
+h2.section-head {
+  font-family: "Cookie", cursive !important;
+  font-size: 50px;
+}
+
+h3.card-head {
+  font-family: "Cookie", cursive !important;
+  font-size: 32px;
+}
+
+/* End Global */
+
+/* Start Sidebar */
+.sidebar {
+  position: fixed;
+  z-index: 9999;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.search-button {
+  background-color: #222339;
+  color: #58596b;
+}
+
+.nav-flush {
+  background-color: #1b1c30;
+  min-height: calc(100vh - 138px);
+}
+
+.nav-flush li {
+  border-color: #1b1c30;
+}
+/* End Sidebar */
+
+/* Start Trending */
+.uk-slider-items .slider-img {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+/* End Trending */
+
+/* Start Casting */
+
+.cast .uk-panel {
+  display: flex;
+  box-shadow: inset rgb(0 0 0 / 30%) -20px -18px 20px 20px,
+    rgb(0 0 0 / 22%) 0px 15px 12px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.cast .cast-img {
+  min-width: 150px;
+}
+.cast .cast-img img {
+  width: 150px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.cast .cast-hr {
+  background-color: #ff5733;
+  height: 2px;
+  width: 60%;
+}
+
+.cast .cast-p {
+  color: #c70039;
+  font-size: 25px;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* End Casting */
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1199.98px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 991.98px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 767.98px) {
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.98px) and (min-width: 374) {
+}
+
+/* Small devices (Fold) */
+@media (max-width: 374.98px) and (min-width: 280px) {
+}
