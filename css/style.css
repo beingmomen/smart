@@ -10,7 +10,7 @@ body {
   background-image: url(../img/spidy1.jpg);
   background-attachment: fixed !important;
   background-size: cover !important;
-  height: 1000px;
+  height: 2000px;
 }
 
 :root {
@@ -85,6 +85,7 @@ h3.card-head {
 
 .cast .cast-img {
   min-width: 150px;
+  min-height: 225px;
 }
 .cast .cast-img img {
   width: 150px;
@@ -112,7 +113,31 @@ h3.card-head {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.cast i {
+  color: #c70039;
+}
 /* End Casting */
+
+/* Start Movies */
+.movies-type li {
+  height: 270px;
+}
+
+.movies-type li .uk-panel {
+  height: 100%;
+}
+
+.movies-type li img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+/* End Movies */
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (max-width: 1199.98px) {
