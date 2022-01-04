@@ -9,6 +9,7 @@ let trendingParent = document.querySelector(".trending")
 let casting = document.querySelector(".casting")
 let moviesList = document.querySelector(".movies-list")
 let typeList
+let bodyOverlay = document.querySelector(".body-container")
 
 // Random number function
 const randomNumber = (number) => {
@@ -16,11 +17,12 @@ const randomNumber = (number) => {
 }
 
 setTimeout(() => {
-    document.body.style.background = `url('${imageUrl}${images[randomNumber(19)]}')`;
+    bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(19)]}')`;
+
 }, 2000);
 
 setInterval(() => {
-    document.body.style.background = `url('${imageUrl}${images[randomNumber(images.length)]}')`;
+    bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(images.length)]}')`;
 }, 10000);
 
 // @ts-ignore
@@ -92,7 +94,7 @@ axios.get(`${originUrl}genre/movie/list${apiKey}&language=en-US`)
 
         data.forEach(el => {
             let name = el.name
-            // @ts-ignore
+                // @ts-ignore
             axios.get(`${originUrl}genre/${el.id}/movies${apiKey}&language=en-US&include_adult=false&sort_by=created_at.asc`)
                 .then(res => {
                     let data = res.data.results
@@ -114,7 +116,7 @@ axios.get(`${originUrl}genre/movie/list${apiKey}&language=en-US`)
     })
 
 // Insert Movies list
-const insertMoviesList = (name, id,) => {
+const insertMoviesList = (name, id, ) => {
     return `                            <div class="movies-type mt-5">
             <h2 class="section-head text-white">${name}</h2>
             <div class="uk-position-relative ${name} uk-visible-toggle uk-light" tabindex="-1" uk-slider>
