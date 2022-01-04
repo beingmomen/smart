@@ -21,7 +21,7 @@
 
 <body class="d-none d-sm-block d-sm-none d-md-block">
 
-    <div class="sidebar">
+    <div class="sidebar not-load">
         <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
             <a href="" class="d-block p-3 link-dark search-button text-decoration-none" title="Search"
                 data-bs-toggle="tooltip" data-bs-placement="right">
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="page-wrap">
+    <div class="page-wrap not-load">
         <!-- Start Trending -->
         <div class="container">
             <h2 class="section-head text-white">Trending</h2>
@@ -128,7 +128,7 @@
 
             </div>
             <div class="movies-list mt-5">
-                <div class="movies-type">
+                <!-- <div class="movies-type">
                     <h2 class="section-head text-white">Type</h2>
                     <div class="uk-position-relative type uk-visible-toggle uk-light" tabindex="-1" uk-slider>
                         <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
@@ -143,14 +143,19 @@
                         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
                     
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- End Casting -->
     </div>
 
 
-
+    <div class="scaling-squares-spinner" :style="spinnerStyle">
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+    </div>
 
 
 
