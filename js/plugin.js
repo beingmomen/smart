@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 
 let images = []
@@ -39,11 +40,11 @@ axios.get(`${originUrl}trending/all/day${apiKey}`)
 
 // Add trending images
 const addTrendingImages = (poster) => {
-    return `<li>
-            <div class="uk-panel">
-                <img class="slider-img" src="${imageUrl}${poster}" alt="">
-            </div>
-        </li>`
+    return `<li class="trending-li">
+                <div class="uk-panel">
+                    <img class="slider-img" src="${imageUrl}${poster}" alt="">
+                </div>
+            </li>`
 }
 
 
@@ -68,22 +69,22 @@ axios.get(`${originUrl}person/popular${apiKey}&language=en-US&page=1`)
 // Insert casting card
 const insertCastingCard = (poster, name, biography, imdb) => {
     return `   <li class="cast">
-            <div class="uk-panel">
-                <div class="cast-img">
-                    <img class="slider-img" src="${imageUrl}${poster}" alt="">
-                </div>
-                <div class="cast-info ms-3">
-                    <h3 class="text-white card-head">${name}</h3>
-                    <hr class="cast-hr" />
-                    <p class="cast-p">
-                        ${biography || 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus, necessitatibus'} 
-                    </p>
-                        <div class="text-end m-2">
-                            <a href='https://www.imdb.com/name/${imdb}/' target="_blank"><i class="fab fa-imdb fa-3x"></i></a>
+                    <div class="uk-panel">
+                        <div class="cast-img">
+                            <img class="slider-img" src="${imageUrl}${poster}" alt="">
                         </div>
-                </div>
-            </div>
-        </li>`
+                        <div class="cast-info ms-3">
+                            <h3 class="text-white card-head">${name}</h3>
+                            <hr class="cast-hr" />
+                            <p class="cast-p">
+                                ${biography || 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus, necessitatibus'} 
+                            </p>
+                                <div class="text-end m-2">
+                                    <a href='https://www.imdb.com/name/${imdb}/' target="_blank"><i class="fab fa-imdb fa-3x"></i></a>
+                                </div>
+                        </div>
+                    </div>
+                </li>`
 }
 
 // Get all movies catagories
@@ -94,7 +95,7 @@ axios.get(`${originUrl}genre/movie/list${apiKey}&language=en-US`)
 
         data.forEach(el => {
             let name = el.name
-                // @ts-ignore
+            // @ts-ignore
             axios.get(`${originUrl}genre/${el.id}/movies${apiKey}&language=en-US&include_adult=false&sort_by=created_at.asc`)
                 .then(res => {
                     let data = res.data.results
@@ -103,24 +104,25 @@ axios.get(`${originUrl}genre/movie/list${apiKey}&language=en-US`)
                     )
                     typeList = document.querySelector(`.type-list${el.id}`)
                     data.forEach(item => {
-                        typeList.insertAdjacentHTML('beforeend', insertPosterForMoviesList(item.poster_path))
+                        // console.log("item : ", item.id);
+                        typeList.insertAdjacentHTML('beforeend', insertPosterForMoviesList(item.poster_path, item.id))
                     });
-                    setTimeout(() => {
-                        document.querySelectorAll(".not-load").forEach(el => {
-                            el.classList.remove("not-load")
-                        })
-                        document.querySelector(".scaling-squares-spinner").classList.add("not-load")
-                    }, 4000);
+                    // setTimeout(() => {
+                    //     document.querySelectorAll(".not-load").forEach(el => {
+                    //         el.classList.remove("not-load")
+                    //     })
+                    //     document.querySelector(".scaling-squares-spinner").classList.add("not-load")
+                    // }, 4000);
                 })
         });
     })
 
 // Insert Movies list
-const insertMoviesList = (name, id, ) => {
+const insertMoviesList = (name, id,) => {
     return `                            <div class="movies-type mt-5">
             <h2 class="section-head text-white">${name}</h2>
             <div class="uk-position-relative ${name} uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-                <ul class="uk-slider-items type-list${id} uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+                <ul class="uk-slider-items movie-container my-5 type-list${id} uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
                 
                 </ul>
             
@@ -133,10 +135,22 @@ const insertMoviesList = (name, id, ) => {
 }
 
 // Insert poster for movies list
-const insertPosterForMoviesList = (poster) => {
-    return `<li>
-            <div class="uk-panel">
-                <img src="${imageUrl}${poster}" alt="">
-            </div>
-        </li>`
+const insertPosterForMoviesList = (poster, id) => {
+    return `<li class="movie-card text-center">
+                <a class="single-movie" href="single.html">
+                    <div class="uk-panel">
+                        <img id="${id}" src="${imageUrl}${poster}" alt="">
+                    </div>
+                </a>
+            </li>`
 }
+
+
+setTimeout(() => {
+    let movieId = document.querySelectorAll(".single-movie")
+    movieId.forEach(item => {
+        item.addEventListener("click", e => {
+            localStorage.setItem("movieID", e.target.id)
+        })
+    })
+}, 1000);
