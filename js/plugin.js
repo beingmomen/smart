@@ -154,3 +154,19 @@ setTimeout(() => {
         })
     })
 }, 1000);
+
+const player = new Plyr('#player', {
+    controls: [],
+    muted: true,
+    loop: { active: true }
+});
+
+player.on('ready', (event) => {
+    // event.path[0].click()
+    console.log("play play : ", event);
+});
+
+setTimeout(() => {
+    console.log("ytp-title-text :", document.querySelector("iframe"));
+
+}, 2000);

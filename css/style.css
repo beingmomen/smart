@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Cookie", cursive !important;
+  font-family: var(--font-family) !important;
   position: relative;
 }
 
@@ -38,23 +38,23 @@ li {
 } */
 
 :root {
-  --main-color: #df0331;
+  --main-color: #c70039;
+  --font-family: 'Caveat', cursive;
 }
 
 .page-wrap {
   width: calc(100% - 72px);
   margin-inline-start: 72px;
-  /* padding-top: 40px; */
   position: relative;
 }
 
 h2.section-head {
-  font-family: "Cookie", cursive !important;
+  font-family: var(--font-family) !important;
   font-size: 50px;
 }
 
 h3.card-head {
-  font-family: "Cookie", cursive !important;
+  font-family: var(--font-family) !important;
   font-size: 32px;
 }
 
@@ -159,7 +159,7 @@ h3.card-head {
 }
 
 .cast .cast-p {
-  color: #c70039;
+  color: var(--main-color);
   font-size: 25px;
   line-height: 1.2;
   display: -webkit-box;
@@ -169,7 +169,7 @@ h3.card-head {
 }
 
 .cast i {
-  color: #c70039;
+  color: var(--main-color);
 }
 
 /* End Casting */
@@ -196,7 +196,7 @@ h3.card-head {
 
 .movies-hr {
   height: 3px !important;
-  background-color: #c70039;
+  background-color: var(--main-color);
   margin-top: 35px;
   opacity: 0.9 !important;
   width: 70%;
@@ -216,6 +216,26 @@ h3.card-head {
 }
 
 /* End Movies */
+
+/* Start Single Page */
+.page-wrap-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.single-info .single-head {
+    color: var(--main-color) ;
+    font-weight: bold;
+    font-family: var(--font-family) !important;
+    font-size: 50px;
+}
+
+/* End Single Page */
+
 
 /* Start Animation */
 
