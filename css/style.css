@@ -234,6 +234,42 @@ h3.card-head {
     font-size: 50px;
 }
 
+.single-info .introduction {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.single-buttons .trailer {
+  background-color: var(--main-color);
+  width: 200px;
+}
+
+.single-buttons .imdb {
+  height: 40px;
+  width: 100px;
+}
+
+.related {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.related li {
+  height: 320px;
+}
+
+.related li img {
+  object-fit: cover;
+  border-radius: 5px;
+  /* height: 80%; */
+}
+
+.related li .uk-card-title {
+  font-family: var(--font-family);
+}
+
 /* End Single Page */
 
 

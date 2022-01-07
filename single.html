@@ -12,10 +12,14 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/all.css" />
     <link href="css/sidebars.css" rel="stylesheet" />
+    <link href="css/jquery.rateyo.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <style></style>
   </head>
@@ -40,7 +44,7 @@
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
           <li class="nav-item">
             <a
-              href="#"
+              href="index.html"
               class="nav-link py-3 border-bottom"
               aria-current="Home"
               title="Home"
@@ -120,15 +124,104 @@
 
     <div class="page-wrap not-loa">
       <div class="plyr__video-embed" id="player">
-        <iframe
+        <!-- <iframe
+          class="background-trailer"
           src="https://www.youtube.com/embed/bTqVqk7FSmY?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
           allowfullscreen
-        ></iframe>
+        ></iframe> -->
       </div>
-      <div class="page-wrap-overlay">
+      <div class="page-wrap-overlay px-4">
         <div class="container-fluid">
           <div class="single-info mt-5">
-            <h2 class="single-head">Captain America: Civil War</h2>
+            <div class="single-info-top">
+              <!-- <h2 class="single-head">Captain America: Civil War</h2>
+                <div class="d-flex">
+                  <div
+                    id="rateYo"
+                    class="d-flex flex-column justify-content-center"
+                  ></div>
+                  <span class="movie-date text-white fs-4">2020</span>
+                </div>
+                <p class="text-white fs-3 mt-4">
+                  Statting: <span class="cast">Chris Eveans</span> /
+                  <span class="cast"> Robert Downey Jr.</span>
+                </p>
+                <p class="mt-4 text-white fs-3 w-50 fw-bolder">
+                  Introduction:
+                  <span class="introduction fw-normal"
+                    >Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Voluptate, error magnam. Neque aut distinctio debitis qui rem
+                    quidem, dolores possimus eveniet cum ratione voluptatem voluptas
+                    reiciendis obcaecati dolore laboriosam est?</span
+                  >
+                </p> -->
+            </div>
+            <div class="single-buttons d-flex">
+              <p class="me-3" uk-margin>
+                <a
+                  class="uk-button trailer text-white fw-bold rounded"
+                  href="#modal-media-youtube"
+                  uk-toggle
+                  >Play</a
+                >
+              </p>
+              <a class="imdb-link" target="_blank" href="#"
+                ><img class="imdb" src="images/imdb.svg" alt="imdb"
+              /></a>
+              <div id="modal-media-youtube" class="uk-flex-top" uk-modal>
+                <div
+                  class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
+                >
+                  <button
+                    class="uk-modal-close-outside"
+                    type="button"
+                    uk-close
+                  ></button>
+                  <iframe
+                    class="trailer-id"
+                    src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA"
+                    width="1920"
+                    height="1080"
+                    frameborder="0"
+                    uk-video
+                    uk-responsive
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+            <div class="related mt-5">
+              <div
+                class="uk-position-relative pb-5 uk-visible-toggle uk-light"
+                tabindex="-1"
+                uk-slider
+              >
+                <ul
+                  class="uk-slider-items related-list uk-child-width-1-2 uk-child-width-1-6@m uk-grid"
+                >
+                  <!-- <li>
+                    <div class="uk-panel h-100">
+                      <img class="h-100" src="img/s1.jpg" alt="" />
+                    </div>
+                    <h3 class="uk-card-title mt-3 text-center fs-2">
+                      Headline
+                    </h3>
+                  </li> -->
+                </ul>
+
+                <a
+                  class="uk-position-center-left uk-position-small uk-hidden-hover"
+                  href="#"
+                  uk-slidenav-previous
+                  uk-slider-item="previous"
+                ></a>
+                <a
+                  class="uk-position-center-right uk-position-small uk-hidden-hover"
+                  href="#"
+                  uk-slidenav-next
+                  uk-slider-item="next"
+                ></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -141,14 +234,6 @@
         <div class="square"></div>
     </div> -->
 
-    <script>
-      //   let iframe = document.querySelector(".trailer-auto");
-
-      //   console.log("iframe : ", iframe.contentWindow.document.body);
-      // setInterval(() => {
-      //     console.log(`document.querySelector(".ytp-chrome-top-buttons") : `, document.querySelector(".ytp-chrome-top-buttons"));
-      // }, 1000);
-    </script>
     <script src="https://cdn.plyr.io/3.6.12/plyr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/jQuery3.6.0.min.js"></script>
@@ -157,6 +242,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/sidebars.js"></script>
+    <script src="js/jquery.rateyo.min.js"></script>
     <script src="js/plugin.js"></script>
   </body>
 </html>

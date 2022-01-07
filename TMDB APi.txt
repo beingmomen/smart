@@ -1,3 +1,5 @@
+
+
 Actor images
 =====> https://api.themoviedb.org/3/person/15555/images?api_key=1dba575db6b3c4b61cea77ef1f176bb2
 
@@ -18,3 +20,9 @@ All info for actor
 
 Get all movies catagories
 =====> https://api.themoviedb.org/3/genre/"+id+"/movies?api_key=***&language=en-US&include_adult=false&sort_by=created_at.asc
+
+Get all cast
+=====> https://api.themoviedb.org/3/movie/624860/credits?api_key=1dba575db6b3c4b61cea77ef1f176bb2&language=en-US
+
+Get release data 
+=====> https://api.themoviedb.org/3/movie/624860/release_dates?api_key=1dba575db6b3c4b61cea77ef1f176bb2

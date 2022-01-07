@@ -163,10 +163,114 @@ const player = new Plyr('#player', {
 
 player.on('ready', (event) => {
     // event.path[0].click()
-    console.log("play play : ", event);
+    // console.log("play play : ", event);
 });
 
-setTimeout(() => {
-    console.log("ytp-title-text :", document.querySelector("iframe"));
+// Get info for movie
 
-}, 2000);
+let movieIdFromStorage = localStorage.getItem('movieID')
+let rating
+
+axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&language=en-US`)
+    .then(res => {
+        let movieData = res.data
+        rating = +(movieData.vote_average / 2).toFixed(1)
+
+        axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/credits${apiKey}&language=en-US`)
+            .then(res => {
+
+                let castData = res.data.cast
+
+
+                document.querySelector(".single-info-top").insertAdjacentHTML('beforeend', `
+                    <h2 class="single-head">${movieData.original_title}</h2>
+                    <div class="d-flex">
+                    <div
+                        id="rateYo"
+                        class="d-flex flex-column justify-content-center"
+                    ></div>
+                    <span class="movie-date text-white fs-4">${movieData.release_date}</span>
+                    </div>
+                    <p class="text-white fs-3 mt-4">
+                    Statting: <span class="cast">${castData[0].name}</span> /
+                    <span class="cast">${castData[1].name}</span>
+                    </p>
+                    <p class="mt-4 text-white fs-3 w-50 fw-bolder">
+                    Introduction:
+                    <span class="introduction fw-normal"
+                        >${movieData.overview}</span
+                    >
+                    </p>
+            `)
+
+                $(function () {
+                    $("#rateYo").rateYo({
+                        rating: rating,
+                        starWidth: "20px",
+                        halfStar: true,
+                        readOnly: true
+                    });
+                });
+            })
+
+        document.querySelector(".imdb-link").setAttribute("href", `https://www.imdb.com/title/${movieData.imdb_id}`)
+
+        axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/videos${apiKey}&language=en-US`)
+            .then(res => {
+                let trailer = res.data.results[0]
+                console.log("video res :", trailer);
+
+                document.querySelector(".plyr__video-embed").insertAdjacentHTML("beforeend", `
+                        <iframe
+                            class="background-trailer"
+                            src="https://www.youtube.com/embed/${trailer.key}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                            allowfullscreen>
+                        </iframe>
+                    `)
+
+                document.querySelector(".trailer-id").setAttribute("src", `https://www.youtube-nocookie.com/embed/${trailer.key}`)
+                // document.querySelector(".background-trailer").setAttribute("src", `https://www.youtube.com/embed/${movieIdFromStorage}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`)
+            })
+
+
+
+        // Related Movies
+        axios.get(`https://api.themoviedb.org/3/movie/${movieData.imdb_id}/similar${apiKey}&language=en-US&page=1`)
+            .then(res => {
+                let relatedMovies = res.data.results
+
+                relatedMovies.forEach(item => {
+                    document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
+                    <li>
+                    <div class="uk-panel h-100">
+                      <img class="h-100" src="${imageUrl}${item.poster_path || item.backdrop_path}" alt="" />
+                    </div>
+                    <h3 class="uk-card-title mt-3 text-center fs-2">
+                      ${item.original_title}
+                    </h3>
+                  </li>
+                    `)
+                })
+                console.log("related res : ", relatedMovies);
+            })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
