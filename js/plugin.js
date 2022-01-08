@@ -176,6 +176,8 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
         let movieData = res.data
         rating = +(movieData.vote_average / 2).toFixed(1)
 
+        console.log("movieData : ", movieData);
+
         axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/credits${apiKey}&language=en-US`)
             .then(res => {
 
@@ -228,6 +230,9 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
                         </iframe>
                     `)
 
+
+
+
                 document.querySelector(".trailer-id").setAttribute("src", `https://www.youtube-nocookie.com/embed/${trailer.key}`)
                 // document.querySelector(".background-trailer").setAttribute("src", `https://www.youtube.com/embed/${movieIdFromStorage}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`)
             })
@@ -235,21 +240,40 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
 
 
         // Related Movies
-        axios.get(`https://api.themoviedb.org/3/movie/${movieData.imdb_id}/similar${apiKey}&language=en-US&page=1`)
+        axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/similar${apiKey}&language=en-US&page=1`)
+            // axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/recommendations${apiKey}&language=en-US&page=1`)
             .then(res => {
                 let relatedMovies = res.data.results
 
+
                 relatedMovies.forEach(item => {
-                    document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
-                    <li>
-                    <div class="uk-panel h-100">
-                      <img class="h-100" src="${imageUrl}${item.poster_path || item.backdrop_path}" alt="" />
-                    </div>
-                    <h3 class="uk-card-title mt-3 text-center fs-2">
-                      ${item.original_title}
-                    </h3>
-                  </li>
-                    `)
+                    if (item.poster_path) {
+                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
+                        <li>
+                            <a class="single-movie" href="single.html">
+                                <div class="uk-panel h-100">
+                                    <img id="${item.id}" class="h-100" src="${imageUrl}${item.poster_path}" alt="" />
+                                </div>
+                                <h3 class="uk-card-title mt-3 text-center fs-2">
+                                ${item.original_title}
+                                </h3>
+                            </a>
+                      </li>
+                        `)
+                    } else {
+                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
+                        <li>
+                            <a class="single-movie" href="single.html">
+                                <div class="uk-panel h-100">
+                                    <img id="${item.id}" class="h-100" src="img/default.png" alt="default" />
+                                </div>
+                                <h3 class="uk-card-title mt-3 text-center fs-2">
+                                ${item.original_title}
+                                </h3>
+                            </a>
+                      </li>
+                        `)
+                    }
                 })
                 console.log("related res : ", relatedMovies);
             })

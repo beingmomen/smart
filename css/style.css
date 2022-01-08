@@ -42,6 +42,10 @@ li {
   --font-family: 'Caveat', cursive;
 }
 
+.main-color {
+  color: var(--main-color);
+}
+
 .page-wrap {
   width: calc(100% - 72px);
   margin-inline-start: 72px;
@@ -218,6 +222,12 @@ h3.card-head {
 /* End Movies */
 
 /* Start Single Page */
+.plyr__video-embed {
+  height: calc(100vh) !important;
+  width: 100%;
+  overflow: hidden;
+}
+
 .page-wrap-overlay {
     position: absolute;
     width: 100%;
@@ -246,9 +256,28 @@ h3.card-head {
   width: 200px;
 }
 
+.trailer-container {
+  left: 70px;
+  overflow: hidden;
+}
+
 .single-buttons .imdb {
   height: 40px;
   width: 100px;
+}
+
+.gallery:hover {
+  color: var(--main-color);
+}
+
+.movie-gallery {
+  width: calc(100% - 72px) !important;
+  margin-left: 72px !important;
+  height: 100vh;
+}
+
+.movie-gallery .img-slider {
+  object-fit: cover;
 }
 
 .related {

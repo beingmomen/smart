@@ -157,7 +157,7 @@
                 </p> -->
             </div>
             <div class="single-buttons d-flex">
-              <p class="me-3" uk-margin>
+              <p class="me-3 mb-0" uk-margin>
                 <a
                   class="uk-button trailer text-white fw-bold rounded"
                   href="#modal-media-youtube"
@@ -165,10 +165,79 @@
                   >Play</a
                 >
               </p>
-              <a class="imdb-link" target="_blank" href="#"
+              <a class="imdb-link me-3" target="_blank" href="#"
                 ><img class="imdb" src="images/imdb.svg" alt="imdb"
               /></a>
-              <div id="modal-media-youtube" class="uk-flex-top" uk-modal>
+              <a
+                class="uk-button gallery bg-white main-color fw-bolder rounded"
+                href="#modal-full"
+                uk-toggle
+                >Gallery</a
+              >
+
+              <div id="modal-full" class="uk-modal-full" uk-modal>
+                <div class="uk-modal-dialog movie-gallery">
+                  <button
+                    class="uk-modal-close-full uk-close-large"
+                    type="button"
+                    uk-close
+                  ></button>
+                  <div
+                    class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle"
+                    uk-grid
+                  >
+                    <div
+                      class="uk-position-relative uk-visible-toggle uk-light"
+                      tabindex="-1"
+                      uk-slider="center: true"
+                    >
+                      <ul
+                        class="uk-slider-items uk-grid uk-grid-match"
+                        uk-height-viewport="offset-top: true; offset-bottom: 30"
+                      >
+                        <li class="uk-width-3-4">
+                          <div class="uk-cover-container">
+                            <img class="img-slider" src="img/s4.jpg" alt="" uk-cover />
+                          </div>
+                        </li>
+                        <li class="uk-width-3-4">
+                          <div class="uk-cover-container">
+                            <img class="img-slider" src="img/s1.jpg" alt="" uk-cover />
+                          </div>
+                        </li>
+                        <li class="uk-width-3-4">
+                          <div class="uk-cover-container">
+                            <img class="img-slider" src="img/s2.jpg" alt="" uk-cover />
+                          </div>
+                        </li>
+                        <li class="uk-width-3-4">
+                          <div class="uk-cover-container">
+                            <img class="img-slider" src="img/s3.jpg" alt="" uk-cover />
+                          </div>
+                        </li>
+                      </ul>
+
+                      <a
+                        class="uk-position-center-left uk-position-small uk-hidden-hover"
+                        href="#"
+                        uk-slidenav-previous
+                        uk-slider-item="previous"
+                      ></a>
+                      <a
+                        class="uk-position-center-right uk-position-small uk-hidden-hover"
+                        href="#"
+                        uk-slidenav-next
+                        uk-slider-item="next"
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                id="modal-media-youtube"
+                class="uk-flex-top trailer-container"
+                uk-modal
+              >
                 <div
                   class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
                 >
