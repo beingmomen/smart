@@ -163,11 +163,9 @@ const player = new Plyr('#player', {
 
 player.on('ready', (event) => {
     // event.path[0].click()
-    // console.log("play play : ", event);
 });
 
 // Get info for movie
-
 let movieIdFromStorage = localStorage.getItem('movieID')
 let rating
 
@@ -182,28 +180,7 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
             .then(res => {
 
                 let castData = res.data.cast
-
-
-                document.querySelector(".single-info-top").insertAdjacentHTML('beforeend', `
-                    <h2 class="single-head">${movieData.original_title}</h2>
-                    <div class="d-flex">
-                    <div
-                        id="rateYo"
-                        class="d-flex flex-column justify-content-center"
-                    ></div>
-                    <span class="movie-date text-white fs-4">${movieData.release_date}</span>
-                    </div>
-                    <p class="text-white fs-3 mt-4">
-                    Statting: <span class="cast">${castData[0].name}</span> /
-                    <span class="cast">${castData[1].name}</span>
-                    </p>
-                    <p class="mt-4 text-white fs-3 w-50 fw-bolder">
-                    Introduction:
-                    <span class="introduction fw-normal"
-                        >${movieData.overview}</span
-                    >
-                    </p>
-            `)
+                document.querySelector(".single-info-top").insertAdjacentHTML('beforeend', movieCasting(movieData.original_title, movieData.release_date, castData[0].name, castData[1].name, movieData.overview))
 
                 $(function () {
                     $("#rateYo").rateYo({
@@ -220,21 +197,8 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
         axios.get(`https://api.themoviedb.org/3/movie/${movieData.id}/videos${apiKey}&language=en-US`)
             .then(res => {
                 let trailer = res.data.results[0]
-                console.log("video res :", trailer);
-
-                document.querySelector(".plyr__video-embed").insertAdjacentHTML("beforeend", `
-                        <iframe
-                            class="background-trailer"
-                            src="https://www.youtube.com/embed/${trailer.key}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
-                            allowfullscreen>
-                        </iframe>
-                    `)
-
-
-
-
+                document.querySelector(".plyr__video-embed").insertAdjacentHTML("beforeend", backgroundTrailer(trailer.key))
                 document.querySelector(".trailer-id").setAttribute("src", `https://www.youtube-nocookie.com/embed/${trailer.key}`)
-                // document.querySelector(".background-trailer").setAttribute("src", `https://www.youtube.com/embed/${movieIdFromStorage}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1`)
             })
 
 
@@ -248,39 +212,50 @@ axios.get(`https://api.themoviedb.org/3/movie/${movieIdFromStorage}${apiKey}&lan
 
                 relatedMovies.forEach(item => {
                     if (item.poster_path) {
-                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
-                        <li>
-                            <a class="single-movie" href="single.html">
-                                <div class="uk-panel h-100">
-                                    <img id="${item.id}" class="h-100" src="${imageUrl}${item.poster_path}" alt="" />
-                                </div>
-                                <h3 class="uk-card-title mt-3 text-center fs-2">
-                                ${item.original_title}
-                                </h3>
-                            </a>
-                      </li>
-                        `)
+                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', relatedMoviesFun(item.id, item.poster_path, item.original_title))
                     } else {
-                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', `
-                        <li>
-                            <a class="single-movie" href="single.html">
-                                <div class="uk-panel h-100">
-                                    <img id="${item.id}" class="h-100" src="img/default.png" alt="default" />
-                                </div>
-                                <h3 class="uk-card-title mt-3 text-center fs-2">
-                                ${item.original_title}
-                                </h3>
-                            </a>
-                      </li>
-                        `)
+                        document.querySelector(".related-list").insertAdjacentHTML('beforeend', relatedMoviesFun(item.id, null, item.original_title))
                     }
                 })
-                console.log("related res : ", relatedMovies);
             })
     })
 
+// Get movie casting
+const movieCasting = (title, date, star1, star2, info) => {
+    return `<h2 class="single-head">${title}</h2>
+            <div class="d-flex">
+                <div id="rateYo" class="d-flex flex-column justify-content-center"></div>
+                <span class="movie-date text-white fs-4">${date}</span>
+            </div>
+            <p class="text-white fs-3 mt-4">
+                Statting: <span class="cast">${star1}</span> / <span class="cast">${star2}</span>
+            </p>
+            <p class="mt-4 text-white fs-3 w-50 fw-bolder"> Introduction:
+                <span class="introduction fw-normal">${info}</span>
+            </p>`}
+
+// Set Background Trailer
+const backgroundTrailer = (key) => {
+    return `<iframe
+                class="background-trailer"
+                src="https://www.youtube.com/embed/${key}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                allowfullscreen>
+            </iframe>`}
 
 
+// Add Related Movies
+const relatedMoviesFun = (id, poster, title) => {
+    return `<li>
+                <a class="single-movie" href="single.html">
+                    <div class="uk-panel h-100">
+                        ${poster ? `<img id="${id}" class="h-100" src="${imageUrl}${poster}" alt="" />`
+            : `<img id="${id}" class="h-100" src="img/default.png" alt="default" />`}
+                    </div>
+                    <h3 class="uk-card-title mt-3 text-center fs-2">
+                    ${title}
+                    </h3>
+                </a>
+            </li>`}
 
 
 
