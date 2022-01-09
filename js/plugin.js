@@ -88,7 +88,8 @@ const movieCasting = (title, date, star1, star2, info) => {
             </p>
             <p class="mt-4 text-white fs-3 w-50 fw-bolder"> Introduction:
                 <span class="introduction fw-normal">${info}</span>
-            </p>`}
+            </p>`
+}
 
 
 // Set Background Trailer
@@ -97,7 +98,8 @@ const backgroundTrailer = (key) => {
                 class="background-trailer"
                 src="https://www.youtube.com/embed/${key}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
                 allowfullscreen>
-            </iframe>`}
+            </iframe>`
+}
 
 
 // Add Related Movies
@@ -138,9 +140,9 @@ setTimeout(() => {
 }, 2000);
 
 // Random Background for home page
-setInterval(() => {
-    bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(images.length)]}')`;
-}, 10000);
+// setInterval(() => {
+//     bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(images.length)]}')`;
+// }, 10000);
 
 
 // Get all trending 
@@ -183,26 +185,35 @@ axios.get(`${originUrl}genre/movie/list${apiKey}&language=en-US`)
         data.forEach(el => {
             let name = el.name
             // @ts-ignore
-            axios.get(`${originUrl}genre/${el.id}/movies${apiKey}&language=en-US&include_adult=false&sort_by=created_at.asc`)
-                .then(res => {
-                    let data = res.data.results
-                    document.querySelector(".movies-list").insertAdjacentHTML('beforeend',
-                        insertMoviesList(el.name, el.id)
-                    )
-                    typeList = document.querySelector(`.type-list${el.id}`)
-                    data.forEach(item => {
-                        typeList.insertAdjacentHTML('beforeend', insertPosterForMoviesList(item.poster_path, item.id))
-                    });
-                    // setTimeout(() => {
-                    //     document.querySelectorAll(".not-load").forEach(el => {
-                    //         el.classList.remove("not-load")
-                    //     })
-                    //     document.querySelector(".scaling-squares-spinner").classList.add("not-load")
-                    // }, 4000);
-                })
+            loadCategoryMovies(el)
+
+
         });
     })
 
+
+// Load Catagories movies
+const loadCategoryMovies = (el) => {
+    axios.get(`${originUrl}genre/${el.id}/movies${apiKey}&language=en-US&include_adult=false&sort_by=created_at.asc`)
+        .then(res => {
+            let data = res.data.results
+            document.querySelector(".movies-list").insertAdjacentHTML('beforeend',
+                insertMoviesList(el.name, el.id)
+            )
+            typeList = document.querySelector(`.type-list${el.id}`)
+            data.forEach(item => {
+
+                typeList.insertAdjacentHTML('beforeend', insertPosterForMoviesList(item.poster_path, item.id))
+
+            });
+            // setTimeout(() => {
+            //     document.querySelectorAll(".not-load").forEach(el => {
+            //         el.classList.remove("not-load")
+            //     })
+            //     document.querySelector(".scaling-squares-spinner").classList.add("not-load")
+            // }, 4000);
+        })
+}
 
 // Store movie id in localStorage
 setTimeout(() => {
@@ -278,12 +289,8 @@ axios.get(`${originUrl}movie/${movieIdFromStorage}${apiKey}&language=en-US`)
                         poster: null,
                         title: item.title,
                     }
-                    if (item.poster_path) {
-                        relatedObject.poster = item.poster_path
-                        insertRelatedMovies(relatedMoviesFun(relatedObject))
-                    } else {
-                        insertRelatedMovies(relatedMoviesFun(relatedObject))
-                    }
+                    relatedObject.poster = item.poster_path || null
+                    insertRelatedMovies(relatedMoviesFun(relatedObject))
                 })
             })
     })
