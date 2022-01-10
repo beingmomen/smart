@@ -9,16 +9,12 @@ let typeList
 let bodyOverlay = document.querySelector(".body-container")
 
 
-
-
-
-
 // **********************************************************************************
 // *********************** Start All Functions **************************************
 // **********************************************************************************
 
 // Random number function
-const randomNumber = (number) => {
+const GenerateRandomNumber = (number) => {
     return Math.floor(Math.random() * number)
 }
 
@@ -26,7 +22,7 @@ const randomNumber = (number) => {
 const addTrendingImages = (poster) => {
     return `<li class="trending-li">
                 <div class="uk-panel">
-                    <img class="slider-img" src="${imageUrl}${poster}" alt="">
+                    <img loading="lazy" class="slider-img" src="${imageUrl}${poster}" alt="">
                 </div>
             </li>`
 }
@@ -36,9 +32,9 @@ const insertCastingCard = (poster, name, biography, imdb) => {
     return `<li class="cast">
                 <div class="uk-panel">
                     <div class="cast-img">
-                        <img class="slider-img" src="${imageUrl}${poster}" alt="">
+                        <img loading="lazy" class="slider-img" src="${imageUrl}${poster}" alt="">
                     </div>
-                    <div class="cast-info ms-3">
+                    <div class="cast-info mx-3">
                         <h3 class="text-white card-head">${name}</h3>
                         <hr class="cast-hr" />
                         <p class="cast-p">
@@ -70,7 +66,7 @@ const insertPosterForMoviesList = (poster, id) => {
     return `<li class="movie-card text-center">
                 <a class="single-movie" href="single.html">
                     <div class="uk-panel">
-                        <img id="${id}" src="${imageUrl}${poster}" alt="">
+                        <img loading="lazy" id="${id}" src="${imageUrl}${poster}" alt="">
                     </div>
                 </a>
             </li>`
@@ -80,14 +76,14 @@ const insertPosterForMoviesList = (poster, id) => {
 const movieCasting = (title, date, star1, star2, info) => {
     return `<h2 class="single-head">${title}</h2>
             <div class="d-flex">
-                <div id="rateYo" class="d-flex flex-column justify-content-center"></div>
-                <span class="movie-date text-white fs-4">${date}</span>
+                <div id="rateYo" class="d-flex flex-column justify-content-center me-2"></div>
+                <span class="movie-date text-white fs-5">${date}</span>
             </div>
-            <p class="text-white fs-3 mt-4">
+            <p class="text-white fs-4 mt-4">
                 Statting: <span class="cast">${star1}</span> / <span class="cast">${star2}</span>
             </p>
-            <p class="mt-4 text-white fs-3 w-50 fw-bolder"> Introduction:
-                <span class="introduction fw-normal">${info}</span>
+            <p class="my-4 text-white fs-3 w-50 fw-bolder"> Introduction:
+                <span class="introduction fw-normal fs-5">${info}</span>
             </p>`
 }
 
@@ -103,18 +99,14 @@ const backgroundTrailer = (key) => {
 
 
 // Add Related Movies
-// id: item.id,
-// poster: item.poster_path,
-// title: item.title,
-
 const relatedMoviesFun = (obj) => {
     return `<li>
                 <a class="single-movie" href="single.html">
                     <div class="uk-panel h-100">
-                        ${obj.poster ? `<img id="${obj.id}" class="h-100" src="${imageUrl}${obj.poster}" alt="" />`
-            : `<img id="${obj.id}" class="h-100" src="img/default.png" alt="default" />`}
+                        ${obj.poster ? `<img loading="lazy" id="${obj.id}" class="h-100 w-100" src="${imageUrl}${obj.poster}" alt="" />`
+            : `<img loading="lazy" id="${obj.id}" class="h-100 w-100" src="img/default.png" alt="default" />`}
                     </div>
-                    <h3 class="uk-card-title mt-3 text-center fs-2">
+                    <h3 title="${obj.title}" class="uk-card-title mt-3 text-center fs-4">
                     ${obj.title}
                     </h3>
                 </a>
@@ -135,14 +127,14 @@ const insertRelatedMovies = (fun) => {
 
 // Set Background for home page
 setTimeout(() => {
-    bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(19)]}')`;
+    bodyOverlay.style.background = `url('${imageUrl}${images[GenerateRandomNumber(19)]}')`;
 
 }, 2000);
 
 // Random Background for home page
-// setInterval(() => {
-//     bodyOverlay.style.background = `url('${imageUrl}${images[randomNumber(images.length)]}')`;
-// }, 10000);
+setInterval(() => {
+    bodyOverlay.style.background = `url('${imageUrl}${images[GenerateRandomNumber(images.length)]}')`;
+}, 10000);
 
 
 // Get all trending 
@@ -206,12 +198,12 @@ const loadCategoryMovies = (el) => {
                 typeList.insertAdjacentHTML('beforeend', insertPosterForMoviesList(item.poster_path, item.id))
 
             });
-            // setTimeout(() => {
-            //     document.querySelectorAll(".not-load").forEach(el => {
-            //         el.classList.remove("not-load")
-            //     })
-            //     document.querySelector(".scaling-squares-spinner").classList.add("not-load")
-            // }, 4000);
+            setTimeout(() => {
+                document.querySelectorAll(".not-load").forEach(el => {
+                    el.classList.remove("not-load")
+                })
+                document.querySelector(".scaling-squares-spinner").classList.add("not-load")
+            }, 6000);
         })
 }
 
